@@ -42,14 +42,17 @@ class md_to_html_SimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
         """Serve a GET request."""
         if self.path.endswith(".md"):  # check for markdown file request
             markdown_to_html(f"./{self.path}")  # render temp html file
-            self.path = "tmp.html"
+            self.path = "/tmp.html"
         f = self.send_head()
         if f:
             try:
                 self.copyfile(f, self.wfile)
             finally:
                 f.close()
-        os.remove("./tmp.html")  # remove temp html file
+        try:
+            os.remove("./tmp.html")  # remove temp html file
+        except FileNotFoundError:
+            pass
 
 
 if __name__ == "__main__":
