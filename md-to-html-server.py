@@ -17,17 +17,17 @@ import urllib.parse
 import contextlib
 import argparse
 from functools import partial
+from pathlib import Path
 
 from http.server import test as http_server_test  # not in http.server.__all__
 from http import HTTPStatus
 from http.server import *
 
 from markdown_it import MarkdownIt
-from pathlib import Path
+# from markdown_it.presets import gfm_like
 
 
 def markdown_to_html(file_path):
-    MarkdownIt_obj = MarkdownIt()
     text = open(file_path, "r").read()
     tokens = MarkdownIt_obj.parse(text)
     html_text = MarkdownIt_obj.render(text)
@@ -40,7 +40,7 @@ class md_to_html_SimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         """Serve a GET request."""
-        if self.path.endswith(".md"):  # check for markdown file request
+        if self.path.endswith(".md") and os.path.exists(f".{self.path}"):  # check for markdown file request
             markdown_to_html(f".{self.path}")  # render temp html file
             self.path = "/tmp.html"
         f = self.send_head()
@@ -56,6 +56,10 @@ class md_to_html_SimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
 
 
 if __name__ == "__main__":
+
+    # gfm_like.make(); MarkdownIt_obj = MarkdownIt("gfm-like")
+    MarkdownIt_obj = MarkdownIt("commonmark").enable("table").enable("strikethrough")
+    
     parser = argparse.ArgumentParser()
     parser.add_argument('--cgi', action='store_true',
                        help='Run as CGI Server')
