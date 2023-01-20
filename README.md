@@ -4,4 +4,4 @@ It's the standard Python [http.server module](https://docs.python.org/3/library/
 
 It's a simple way to write up some Markdown with a terminal & a web browser.
 
-<img src="./scrot.png" height="200"/>
+<img src="./scrot.png" height="400"/>
