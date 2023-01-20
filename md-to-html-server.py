@@ -1,0 +1,90 @@
+import copy
+import datetime
+import email.utils
+import html
+import http.client
+import io
+import mimetypes
+import os
+import posixpath
+import select
+import shutil
+import socket # For gethostbyaddr()
+import socketserver
+import sys
+import time
+import urllib.parse
+import contextlib
+import argparse
+from functools import partial
+
+from http.server import test as http_server_test  # not in http.server.__all__
+from http import HTTPStatus
+from http.server import *
+
+from markdown_it import MarkdownIt
+from pathlib import Path
+
+
+def markdown_to_html(file_path):
+    MarkdownIt_obj = MarkdownIt()
+    text = open(file_path, "r").read()
+    tokens = MarkdownIt_obj.parse(text)
+    html_text = MarkdownIt_obj.render(text)
+    Path("./tmp.html").write_text(html_text)
+
+
+class md_to_html_SimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def do_GET(self):
+        """Serve a GET request."""
+        if self.path.endswith(".md"):  # check for markdown file request
+            markdown_to_html(f"./{self.path}")  # render temp html file
+            self.path = "tmp.html"
+        f = self.send_head()
+        if f:
+            try:
+                self.copyfile(f, self.wfile)
+            finally:
+                f.close()
+        os.remove("./tmp.html")  # remove temp html file
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--cgi', action='store_true',
+                       help='Run as CGI Server')
+    parser.add_argument('--bind', '-b', metavar='ADDRESS',
+                        help='Specify alternate bind address '
+                             '[default: all interfaces]')
+    parser.add_argument('--directory', '-d', default=os.getcwd(),
+                        help='Specify alternative directory '
+                        '[default:current directory]')
+    parser.add_argument('port', action='store',
+                        default=8000, type=int,
+                        nargs='?',
+                        help='Specify alternate port [default: 8000]')
+    args = parser.parse_args()
+    if args.cgi:
+        handler_class = CGIHTTPRequestHandler
+    else:
+        handler_class = partial(md_to_html_SimpleHTTPRequestHandler,
+                                directory=args.directory)
+
+    # ensure dual-stack is not disabled; ref #38907
+    class DualStackServer(ThreadingHTTPServer):
+        def server_bind(self):
+            # suppress exception when protocol is IPv4
+            with contextlib.suppress(Exception):
+                self.socket.setsockopt(
+                    socket.IPPROTO_IPV6, socket.IPV6_V6ONLY, 0)
+            return super().server_bind()
+
+    http_server_test(
+        HandlerClass=handler_class,
+        ServerClass=DualStackServer,
+        port=args.port,
+        bind=args.bind,
+    )
