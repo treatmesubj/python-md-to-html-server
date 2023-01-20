@@ -41,7 +41,7 @@ class md_to_html_SimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         """Serve a GET request."""
         if self.path.endswith(".md"):  # check for markdown file request
-            markdown_to_html(f"./{self.path}")  # render temp html file
+            markdown_to_html(f".{self.path}")  # render temp html file
             self.path = "/tmp.html"
         f = self.send_head()
         if f:
