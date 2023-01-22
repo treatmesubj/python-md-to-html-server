@@ -6,4 +6,4 @@ The `http.server` module's `SimpleHTTPRequestHandler` class is inherited by a ne
 
 It makes for a simple way to write up some Markdown with a terminal & a web browser
 
-<img src="./scrot.png" height="400"/>
+<img src="./scrot.png"/>
