@@ -8,4 +8,4 @@ It makes for a simple way to write up some Markdown with a terminal & a web brow
 
 **TIP**: In most browsers, keyboard shortcut `Ctrl+Shift+R` will refresh the page and ignore cache
 
-<img src="./scrot.png"/>
+![](<./scrot.png>)
