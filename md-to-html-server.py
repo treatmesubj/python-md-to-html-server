@@ -27,7 +27,7 @@ from markdown_it import MarkdownIt
 # from markdown_it.presets import gfm_like
 
 
-def markdown_to_html(file_path):
+def markdown_to_html(MarkdownIt_obj, file_path):
     text = open(file_path, "r").read()
     tokens = MarkdownIt_obj.parse(text)
     html_text = MarkdownIt_obj.render(text)
@@ -35,13 +35,14 @@ def markdown_to_html(file_path):
 
 
 class md_to_html_SimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, MarkdownIt_obj=None, **kwargs):
+        self.MarkdownIt_obj = MarkdownIt_obj
         super().__init__(*args, **kwargs)
 
     def do_GET(self):
         """Serve a GET request."""
         if self.path.endswith(".md") and os.path.exists(f".{self.path}"):  # check for markdown file request
-            markdown_to_html(f".{self.path}")  # render temp html file
+            markdown_to_html(self.MarkdownIt_obj, f".{self.path}")  # render temp html file
             self.path = "/tmp.html"
         f = self.send_head()
         if f:
@@ -78,7 +79,8 @@ if __name__ == "__main__":
         handler_class = CGIHTTPRequestHandler
     else:
         handler_class = partial(md_to_html_SimpleHTTPRequestHandler,
-                                directory=args.directory)
+                                directory=args.directory,
+                                MarkdownIt_obj=MarkdownIt_obj)
 
     # ensure dual-stack is not disabled; ref #38907
     class DualStackServer(ThreadingHTTPServer):
