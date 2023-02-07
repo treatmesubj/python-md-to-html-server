@@ -34,9 +34,9 @@ def markdown_to_html(MarkdownIt_obj, file_path):
     tokens = MarkdownIt_obj.parse(text)
     html_text = MarkdownIt_obj.render(text)
     # pretty CSS
-    soup = BeautifulSoup(html_text, 'html5lib') # adds <html> & <body>
+    soup = BeautifulSoup(html_text, 'html5lib') # adds <html>, <head>,  <body>
     soup.select_one('head').append(soup.new_tag("style"))
-    soup.select_one("style").string="body { background-color: #272822; color: white; } a[href] { color: #66d9ef; }"
+    soup.select_one("style").string="body { background-color: #272822; color: white; font-family: Consolas } a[href] { color: #66d9ef; }"
     Path("./tmp.html").write_text(str(soup))
 
 
