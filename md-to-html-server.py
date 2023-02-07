@@ -26,12 +26,18 @@ from http.server import *
 from markdown_it import MarkdownIt
 # from markdown_it.presets import gfm_like
 
+from bs4 import BeautifulSoup, element
+
 
 def markdown_to_html(MarkdownIt_obj, file_path):
     text = open(file_path, "r").read()
     tokens = MarkdownIt_obj.parse(text)
     html_text = MarkdownIt_obj.render(text)
-    Path("./tmp.html").write_text(html_text)
+    # pretty CSS
+    soup = BeautifulSoup(html_text, 'html5lib') # adds <html> & <body>
+    soup.select_one('head').append(soup.new_tag("style"))
+    soup.select_one("style").string="body { background-color: #272822; color: white; } a[href] { color: #66d9ef; }"
+    Path("./tmp.html").write_text(str(soup))
 
 
 class md_to_html_SimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
@@ -60,7 +66,7 @@ if __name__ == "__main__":
 
     # gfm_like.make(); MarkdownIt_obj = MarkdownIt("gfm-like")
     MarkdownIt_obj = MarkdownIt("commonmark").enable("table").enable("strikethrough")
-    
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--cgi', action='store_true',
                        help='Run as CGI Server')

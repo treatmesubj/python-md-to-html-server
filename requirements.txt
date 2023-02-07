@@ -1,1 +1,3 @@
 markdown-it-py
+pip install beautifulsoup4
+html5lib
