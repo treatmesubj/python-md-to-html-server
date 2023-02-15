@@ -1,3 +1,6 @@
+"""
+just convert a markdown file to HTML and write it out to a file
+"""
 import os
 import sys
 from markdown_it import MarkdownIt
