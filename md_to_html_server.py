@@ -45,21 +45,25 @@ class md_to_html_SimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
         self.MarkdownIt_obj = MarkdownIt_obj
         super().__init__(*args, **kwargs)
 
-    def do_GET(self):
+    def do_GET(self, rm_temp_html=False):
         """Serve a GET request."""
-        if self.path.endswith(".md") and os.path.exists(f".{self.path}"):  # check for markdown file request
-            markdown_to_html(self.MarkdownIt_obj, f".{self.path}")  # render temp html file
-            self.path = "/tmp.html"
+        if self.path.endswith(".md") and os.path.exists(os.path.join(self.directory, f".{self.path}")):  # check for markdown file request
+            in_file_path=os.path.join(self.directory, f".{self.path}")
+            out_file_path=os.path.join(self.directory, f".{os.path.splitext(self.path)[0]}.html")
+            markdown_to_html(
+                    self.MarkdownIt_obj,
+                    in_file_path=in_file_path,
+                    out_file_path=out_file_path)
+            self.path = f"{os.path.splitext(self.path)[0]}.html"
+            rm_temp_html = True
         f = self.send_head()
         if f:
             try:
                 self.copyfile(f, self.wfile)
             finally:
                 f.close()
-        try:
-            os.remove("tmp.html")  # remove temp html file
-        except FileNotFoundError:
-            pass
+        if rm_temp_html:
+            os.remove(out_file_path)  # remove temp html file
 
 
 if __name__ == "__main__":
