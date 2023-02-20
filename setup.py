@@ -11,4 +11,9 @@ setup(
     project_urls={
         "Source": "https://github.com/treatmesubj/python-md-to-html-server",
     },
+    install_requires=[
+        "markdown-it-py",
+        "beautifulsoup4",
+        "html5lib"
+    ],
 )
