@@ -1,8 +1,0 @@
-```
-sudo apt install pandoc
-sudo apt install texlive
-sudo apt isntall texlive-latex-extra
-python md-to-html-server.py
-curl localhost:8000/test.md -o test.html
-pandoc test.html -t latex -o test.pdf
-```
