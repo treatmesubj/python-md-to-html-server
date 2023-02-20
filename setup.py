@@ -1,7 +1,8 @@
 from setuptools import setup
 setup(
     name="httpmdhtml",
-    version="1.0.0",
+    version="0.0.1",
+    license="gpl-3.0",
     author="John Hupperts",
     url="https://github.com/treatmesubj/python-md-to-html-server",
     packages=["httpmdhtml"],
