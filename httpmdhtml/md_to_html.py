@@ -3,6 +3,7 @@ just convert a markdown file to HTML and write it out to a file
 """
 import os
 import sys
+from pathlib import Path
 from markdown_it import MarkdownIt
 # from markdown_it.presets import gfm_like
 from bs4 import BeautifulSoup, element
