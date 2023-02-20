@@ -26,6 +26,7 @@ if __name__ == "__main__":
         in_file_path = sys.argv[1]
         out_file_path = sys.argv[2]
     except IndexError as e:
-        print("\nusage: python md_to_html.py in_file.md out_file.html")
+        print("\nusage: python md_to_html.py in_file.md out_file.html\n",
+                "or, if you pip installed: python -m httpmdhtml.md_to_html in_file.md out_file.html\n")
         raise e
     markdown_to_html(MarkdownIt_obj, in_file_path, out_file_path)
