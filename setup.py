@@ -5,6 +5,7 @@ setup(
     license="gpl-3.0",
     author="John Hupperts",
     url="https://github.com/treatmesubj/python-md-to-html-server",
+    download_url="https://github.com/treatmesubj/python-md-to-html-server/archive/refs/tags/v0.0.1.tar.gz",
     packages=["httpmdhtml"],
     package_dir={"python-md-to-html-server": "httpmdhtml"},
     project_urls={
