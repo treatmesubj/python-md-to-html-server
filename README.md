@@ -8,4 +8,18 @@ It makes for a simple way to write up some Markdown with a terminal & a web brow
 
 **TIP**: In most browsers, keyboard shortcut `Ctrl+Shift+R` will refresh the page and ignore cache
 
+## Installation
+```
+pip install "git+https://github.com/treatmesubj/python-md-to-html-server"
+```
+
+## Usage Example
+```
+python -m httpmdhtml.server -d . -b 127.0.0.1
+```
+#### Just Convert Markdown & Write an HTML File
+```
+python -m httpmdhtml.md_to_html in_file out_file
+```
+
 ![](<./scrot.png>)
