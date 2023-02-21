@@ -16,9 +16,9 @@ It makes for a simple way to write up some Markdown with a terminal & a web brow
 ```
 python -m httpmdhtml.server -d . -b 127.0.0.1
 ```
-#### Just Convert Markdown & Write an HTML File
+#### Just Convert Markdown to HTML File 
 ```
-python -m httpmdhtml.md_to_html in_file out_file
+python -m httpmdhtml.md_to_html in_file.md out_file.html
 ```
 
 ![](<./scrot.png>)
