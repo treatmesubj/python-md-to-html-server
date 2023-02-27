@@ -13,12 +13,17 @@ It makes for a simple way to write up some Markdown with a terminal & a web brow
 - from GitHub: `pip install "git+https://github.com/treatmesubj/python-md-to-html-server"`
 
 ## Usage Example
+### Markdown-to-HTML Server
 ```
 python -m httpmdhtml.server -d . -b 127.0.0.1
 ```
 #### Just Convert Markdown to HTML File 
 ```
-python -m httpmdhtml.md_to_html in_file.md out_file.html
+python -m httpmdhtml.md_to_html -i in_file.md -o out_file.html
+```
+#### Convert Markdown to HTML File & Embed Base64-Encoded Local Images in HTML File
+```
+python -m httpmdhtml.md_to_html -i in_file.md -o out_file.html --encode_local_images
 ```
 
 ![](<./scrot.png>)
