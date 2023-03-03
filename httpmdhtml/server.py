@@ -35,7 +35,6 @@ class md_to_html_SimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, MarkdownIt_obj=None, **kwargs):
         self.MarkdownIt_obj = MarkdownIt_obj
         super().__init__(*args, **kwargs)
-        self.url_decoded_path = urllib.parse.unquote(self.path)
 
 
     def do_GET(self, rm_temp_html=False):
