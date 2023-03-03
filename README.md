@@ -10,7 +10,7 @@ It makes for a simple way to write up some Markdown with a terminal & a web brow
 
 ## Installation
 - from [PyPI](https://pypi.org/project/httpmdhtml/): `pip install httpmdhtml`
-- from GitHub: `pip install "git+https://github.com/treatmesubj/python-md-to-html-server"`
+- from [GitHub](https://github.com/treatmesubj/python-md-to-html-server): `pip install "git+https://github.com/treatmesubj/python-md-to-html-server"`
 
 ## Usage Example
 ### Markdown-to-HTML Server
