@@ -12,6 +12,7 @@ setup(
     author_email="jrock4503@hotmail.com",
     description="HTTP server that converts markdown to HTML",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     url="https://github.com/treatmesubj/python-md-to-html-server",
     download_url="https://github.com/treatmesubj/python-md-to-html-server/archive/refs/tags/v0.0.4.tar.gz",
     packages=["httpmdhtml"],
