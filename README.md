@@ -2,7 +2,7 @@
 
 It's the standard Python [http.server module](https://docs.python.org/3/library/http.server.html) but via [markdown-it-py](https://github.com/executablebooks/markdown-it-py), requested Markdown files are rendered and served as HTML
 
-The `http.server` module's `SimpleHTTPRequestHandler` class is inherited by a new class with its `do_GET` method overridden. [beautifulsoup](https://pypi.org/project/beautifulsoup4/) and [html5lib](https://pypi.org/project/html5lib/) add `<html>`, `<head>`, & `<body>` elements and I insert a `<style>` element with some personally preferred CSS styling.
+The `http.server` module's `SimpleHTTPRequestHandler` class is inherited by a new class with its `do_GET` method overridden. [beautifulsoup](https://pypi.org/project/beautifulsoup4/) and [html5lib](https://pypi.org/project/html5lib/) add `<html>`, `<head>`, & `<body>` elements and I insert a `<style>` element with some personally preferred CSS styling. Optionally, a custom CSS file can be used to style instead.
 
 It makes for a simple way to write up some Markdown with a terminal & a web browser
 
@@ -15,15 +15,39 @@ It makes for a simple way to write up some Markdown with a terminal & a web brow
 ## Usage Example
 ### Markdown-to-HTML Server
 ```
-python -m httpmdhtml.server -d . -b 127.0.0.1
-```
-#### Just Convert Markdown to HTML File 
-```
-python -m httpmdhtml.md_to_html -i in_file.md -o out_file.html
-```
-#### Convert Markdown to HTML File & Embed Base64-Encoded Local Images in HTML File
-```
-python -m httpmdhtml.md_to_html -i in_file.md -o out_file.html --encode_local_images
+python -m httpmdhtml.server -b 127.0.0.1 -d . --css_file ../mystyle.css
+---
+usage: server.py [-h] [--cgi] [--bind ADDRESS] [--directory DIRECTORY] [--css_file CSS_FILE] [port]
+
+positional arguments:
+  port                  Specify alternate port [default: 8000]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --cgi                 Run as CGI Server
+  --bind ADDRESS, -b ADDRESS
+                        Specify alternate bind address [default: all interfaces]
+  --directory DIRECTORY, -d DIRECTORY
+                        Specify alternative directory [default:current directory]
+  --css_file CSS_FILE   css-file-path; its content will be written to the <style> element
 ```
 
+### Markdown-to-HTML Out-File
+```
+python -m httpmdhtml.md_to_html -i in_file.md -o out_file.html --encode_local_images
+---
+usage: md_to_html.py [-h] [--in_file_path IN_FILE_PATH] [--out_file_path OUT_FILE_PATH] [--encode_local_images]
+                     [--css_file CSS_FILE]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --in_file_path IN_FILE_PATH, -i IN_FILE_PATH
+                        in-file-path; your existing markdown file
+  --out_file_path OUT_FILE_PATH, -o OUT_FILE_PATH
+                        out-file-path; your HTML file to be created
+  --encode_local_images, -e
+                        in HTML, embed base64-encoded data of local images linked to in your markdown; remove the
+                        dependency on the prescence of the external local images
+  --css_file CSS_FILE   css-file-path; its content will be written to the <style> element
+```
 ![](<./scrot.png>)
