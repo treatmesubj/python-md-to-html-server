@@ -8,7 +8,6 @@ from pathlib import Path
 import argparse
 import re
 from markdown_it import MarkdownIt
-# from markdown_it.presets import gfm_like
 from bs4 import BeautifulSoup, element
 
 
@@ -28,7 +27,9 @@ def markdown_to_html(MarkdownIt_obj, in_file_path, out_file_path="tmp.html",
         css="""body { background-color: #272822; color: white; font-family: Courier; }
         a[href] { color: #66d9ef; }
         code { color: #ae81ff; background-color: #272b33; border-radius: 6px; }
-        table, th, td { border: 1px solid; border-collapse: collapse; padding-left: 4px; padding-right: 4px; }"""
+        table, th, td { border: 1px solid; border-collapse: collapse; padding-left: 4px; padding-right: 4px; }
+        h1, h2, h3, h4, h5 { margin-top: 0px; margin-bottom: 0px; }
+        p { margin-top: 0px; }"""
     soup.select_one("style").string = css
     if encode_local_images:
         img_elems = soup.select("img")
@@ -43,7 +44,7 @@ def markdown_to_html(MarkdownIt_obj, in_file_path, out_file_path="tmp.html",
 
 
 if __name__ == "__main__":
-    # gfm_like.make(); MarkdownIt_obj = MarkdownIt("gfm-like")
+
     MarkdownIt_obj = MarkdownIt("commonmark").enable("table").enable("strikethrough")
     parser = argparse.ArgumentParser()
     parser.add_argument('--in_file_path', '-i', required=True,
