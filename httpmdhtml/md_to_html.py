@@ -51,7 +51,7 @@ if __name__ == "__main__":
     parser.add_argument('--out_file_path', '-o',
                         help='out-file-path; your HTML file to be created')
     parser.add_argument('--encode_local_images', '-e', action='store_true',
-                        help='in HTML, embed base64-encoded data of local images linked to in your markdown; remove the dependency on the prescence of the external local images')
+                        help='in HTML, embed base64-encoded data of local images linked to in your markdown; removes dependency on prescence of the external local images')
     parser.add_argument('--css_file', default=None,
                         help='css-file-path; its content will be written to the <style> element')
     args = parser.parse_args()

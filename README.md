@@ -47,7 +47,7 @@ optional arguments:
                         out-file-path; your HTML file to be created
   --encode_local_images, -e
                         in HTML, embed base64-encoded data of local images linked to in your markdown; remove the
-                        dependency on the prescence of the external local images
+                        dependency on prescence of external local images
   --css_file CSS_FILE   css-file-path; its content will be written to the <style> element
 ```
 ![](<./scrot.png>)
