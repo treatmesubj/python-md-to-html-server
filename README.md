@@ -46,7 +46,7 @@ optional arguments:
   --out_file_path OUT_FILE_PATH, -o OUT_FILE_PATH
                         out-file-path; your HTML file to be created
   --encode_local_images, -e
-                        in HTML, embed base64-encoded data of local images linked to in your markdown; remove the
+                        in HTML, embed base64-encoded data of local images linked to in your markdown; remove
                         dependency on prescence of external local images
   --css_file CSS_FILE   css-file-path; its content will be written to the <style> element
 ```
