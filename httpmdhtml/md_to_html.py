@@ -46,9 +46,9 @@ if __name__ == "__main__":
     # gfm_like.make(); MarkdownIt_obj = MarkdownIt("gfm-like")
     MarkdownIt_obj = MarkdownIt("commonmark").enable("table").enable("strikethrough")
     parser = argparse.ArgumentParser()
-    parser.add_argument('--in_file_path', '-i',
+    parser.add_argument('--in_file_path', '-i', required=True,
                        help='in-file-path; your existing markdown file')
-    parser.add_argument('--out_file_path', '-o',
+    parser.add_argument('--out_file_path', '-o', default="tmp.html",
                         help='out-file-path; your HTML file to be created')
     parser.add_argument('--encode_local_images', '-e', action='store_true',
                         help='in HTML, embed base64-encoded data of local images linked to in your markdown; removes dependency on presence of the external local images')
