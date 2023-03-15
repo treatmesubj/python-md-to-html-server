@@ -12,7 +12,7 @@ It makes for a simple way to write up some Markdown with a terminal & a web brow
 - from [PyPI](https://pypi.org/project/httpmdhtml/): `pip install httpmdhtml`
 - from [GitHub](https://github.com/treatmesubj/python-md-to-html-server): `pip install "git+https://github.com/treatmesubj/python-md-to-html-server"`
 
-## Usage Example
+## Usage
 ### Markdown-to-HTML Server
 ```
 python -m httpmdhtml.server -b 127.0.0.1 -d . --css_file ../mystyle.css
