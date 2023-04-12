@@ -31,7 +31,7 @@ from httpmdhtml import md_to_html
 
 
 class md_to_html_SimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
-    def __init__(self, MarkdownIt_obj, args*, css_file=None, live_md=False, **kwargs):
+    def __init__(self, args*, MarkdownIt_obj=None, css_file=None, live_md=False, **kwargs):
         self.MarkdownIt_obj = MarkdownIt_obj
         self.css_file = css_file
         self.live_md = live_md
@@ -41,7 +41,7 @@ class md_to_html_SimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
     def do_GET(self, rm_temp_html=False):
         """Serve a GET request."""
         self.url_dc_path = urllib.parse.unquote(urllib.parse.urlsplit(self.path).path)  # url decode, strip query params for file check
-        if self.url_dc_path.endswith(".md") and os.path.exists(os.path.join(self.directory, f".{self.url_dc_path}")):  # check for markdown file request
+        if self.MarkdownIt_obj and self.url_dc_path.endswith(".md") and os.path.exists(os.path.join(self.directory, f".{self.url_dc_path}")):  # check for markdown file request
             in_file_path=os.path.join(self.directory, f".{self.url_dc_path}")
             out_file_path=os.path.join(self.directory, f".{os.path.splitext(self.url_dc_path)[0]}.html")
             md_to_html.markdown_to_html(
