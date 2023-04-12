@@ -31,9 +31,10 @@ from httpmdhtml import md_to_html
 
 
 class md_to_html_SimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
-    def __init__(self, *args, MarkdownIt_obj=None, css_file=None, **kwargs):
+    def __init__(self, MarkdownIt_obj, args*, css_file=None, live_md=False, **kwargs):
         self.MarkdownIt_obj = MarkdownIt_obj
         self.css_file = css_file
+        self.live_md = live_md
         super().__init__(*args, **kwargs)
 
 
@@ -47,7 +48,8 @@ class md_to_html_SimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
                     self.MarkdownIt_obj,
                     in_file_path=in_file_path,
                     out_file_path=out_file_path,
-                    css_file=self.css_file)
+                    css_file=self.css_file,
+                    live_md=self.live_md)
             self.path = f"{os.path.splitext(self.path)[0]}.html"
             rm_temp_html = True
         f = self.send_head()
@@ -73,6 +75,8 @@ if __name__ == "__main__":
                         '[default:current directory]')
     parser.add_argument('--css_file', default=None,
                          help='css-file-path; its content will be written to the <style> element')
+    parser.add_argument('--live_md', '-l', action='store_true',
+                         help='continuously refresh MD page with JS/DOM')
     parser.add_argument('port', action='store',
                         default=8000, type=int,
                         nargs='?',
@@ -83,11 +87,12 @@ if __name__ == "__main__":
     else:
         MarkdownIt_obj = MarkdownIt("commonmark").enable("table").enable("strikethrough")
         if args.css_file and not os.path.isfile(args.css_file):
-            raise FileNotFoundError(f"looks like the given `css_file` argument's value - {args.css_file} - is not actually a file")
+            raise FileNotFoundError(f"looks like the given `css_file` argument's value - {args.css_file} - cannot be found")
         handler_class = partial(md_to_html_SimpleHTTPRequestHandler,
                                 directory=args.directory,
                                 MarkdownIt_obj=MarkdownIt_obj,
-                                css_file=args.css_file)
+                                css_file=args.css_file,
+                                live_md=args.live_md)
 
     # ensure dual-stack is not disabled; ref #38907
     class DualStackServer(ThreadingHTTPServer):

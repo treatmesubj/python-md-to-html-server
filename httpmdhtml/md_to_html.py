@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup, element
 
 
 def markdown_to_html(MarkdownIt_obj, in_file_path, out_file_path="tmp.html",
-        encode_local_images=False, css_file=None):
+        encode_local_images=False, css_file=None, live_md=False):
 
     text = open(in_file_path, "r").read()
     tokens = MarkdownIt_obj.parse(text)
@@ -31,6 +31,10 @@ def markdown_to_html(MarkdownIt_obj, in_file_path, out_file_path="tmp.html",
         code { color: #ae81ff; background-color: #272b33; border-radius: 6px; }
         table, th, td { border: 1px solid; border-collapse: collapse; padding-left: 4px; padding-right: 4px; }"""
     soup.select_one("style").string = css
+    if live_md:
+        script = "while (true) { setTimeout(() => { document.location.reload()); }, 5000) }"
+        soup.select_one('head').append(soup.new_tag("script"))
+        soup.select_one("script").string = script
     if encode_local_images:
         img_elems = soup.select("img")
         url_pattern = "^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$"
