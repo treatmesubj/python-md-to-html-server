@@ -21,6 +21,9 @@ def markdown_to_html(MarkdownIt_obj, in_file_path, out_file_path="tmp.html",
     soup = BeautifulSoup(html_text, 'html5lib') # adds <html>, <head>,  <body>
     soup.select_one('head').append(soup.new_tag("meta"))
     soup.select_one('meta').attrs['charset'] = "UTF-8"
+    # if lots of images, caching is preferable more often than not
+    # soup.select_one('meta').attrs['http-equiv'] = "Cache-control"
+    # soup.select_one('meta').attrs['content'] = "no-cache"
     soup.select_one('head').append(soup.new_tag("style"))
     if css_file:
         with open(css_file, 'r') as f:

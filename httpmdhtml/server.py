@@ -76,7 +76,7 @@ if __name__ == "__main__":
     parser.add_argument('--css_file', default=None,
                          help='css-file-path; its content will be written to the <style> element')
     parser.add_argument('--live_md_rr', '-l', action='store', type=int, default=None,
-                         help='continuous refresh rate of MD page, in ms')
+                         help='Continuous refresh rate of MD page, in ms. Respects cache')
     parser.add_argument('port', action='store',
                         default=8000, type=int,
                         nargs='?',

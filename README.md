@@ -33,7 +33,7 @@ optional arguments:
                         Specify alternative directory [default:current directory]
   --css_file CSS_FILE   css-file-path; its content will be written to the <style> element
   --live_md_rr LIVE_MD_RR, -l LIVE_MD_RR
-                        continuous refresh rate of MD page, in ms
+                        Continuous refresh rate of MD page, in ms. Respects cache
 ```
 
 ### Markdown-to-HTML Out-File
