@@ -32,7 +32,7 @@ def markdown_to_html(MarkdownIt_obj, in_file_path, out_file_path="tmp.html",
         table, th, td { border: 1px solid; border-collapse: collapse; padding-left: 4px; padding-right: 4px; }"""
     soup.select_one("style").string = css
     if live_md:
-        script = "while (true) { setTimeout(() => { document.location.reload()); }, 5000) }"
+        script = "setTimeout(function(){ document.location.reload(); }, 5000);"
         soup.select_one('head').append(soup.new_tag("script"))
         soup.select_one("script").string = script
     if encode_local_images:
