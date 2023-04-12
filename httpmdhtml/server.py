@@ -31,7 +31,7 @@ from httpmdhtml import md_to_html
 
 
 class md_to_html_SimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
-    def __init__(self, args*, MarkdownIt_obj=None, css_file=None, live_md=False, **kwargs):
+    def __init__(self, *args, MarkdownIt_obj=None, css_file=None, live_md=False, **kwargs):
         self.MarkdownIt_obj = MarkdownIt_obj
         self.css_file = css_file
         self.live_md = live_md
