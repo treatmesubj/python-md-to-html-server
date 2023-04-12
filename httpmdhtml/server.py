@@ -31,10 +31,10 @@ from httpmdhtml import md_to_html
 
 
 class md_to_html_SimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
-    def __init__(self, *args, MarkdownIt_obj=None, css_file=None, live_md=False, **kwargs):
+    def __init__(self, *args, MarkdownIt_obj=None, css_file=None, live_md_rr=False, **kwargs):
         self.MarkdownIt_obj = MarkdownIt_obj
         self.css_file = css_file
-        self.live_md = live_md
+        self.live_md_rr = live_md_rr
         super().__init__(*args, **kwargs)
 
 
@@ -49,7 +49,7 @@ class md_to_html_SimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
                     in_file_path=in_file_path,
                     out_file_path=out_file_path,
                     css_file=self.css_file,
-                    live_md=self.live_md)
+                    live_md_rr=self.live_md_rr)
             self.path = f"{os.path.splitext(self.path)[0]}.html"
             rm_temp_html = True
         f = self.send_head()
@@ -75,8 +75,8 @@ if __name__ == "__main__":
                         '[default:current directory]')
     parser.add_argument('--css_file', default=None,
                          help='css-file-path; its content will be written to the <style> element')
-    parser.add_argument('--live_md', '-l', action='store_true',
-                         help='continuously refresh MD page with JS/DOM')
+    parser.add_argument('--live_md_rr', '-l', action='store', type=int, default=None,
+                         help='continuous refresh rate of MD page, in ms')
     parser.add_argument('port', action='store',
                         default=8000, type=int,
                         nargs='?',
@@ -92,7 +92,7 @@ if __name__ == "__main__":
                                 directory=args.directory,
                                 MarkdownIt_obj=MarkdownIt_obj,
                                 css_file=args.css_file,
-                                live_md=args.live_md)
+                                live_md_rr=args.live_md_rr)
 
     # ensure dual-stack is not disabled; ref #38907
     class DualStackServer(ThreadingHTTPServer):
