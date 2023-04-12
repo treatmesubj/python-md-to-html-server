@@ -15,9 +15,11 @@ It makes for a simple way to write up some Markdown with a terminal & a web brow
 ## Usage
 ### Markdown-to-HTML Server
 ```
-python -m httpmdhtml.server -b 127.0.0.1 -d . --css_file ../mystyle.css
+python -m httpmdhtml.server -b 127.0.0.1 -d . --css_file ../mystyle.css -l 5000
 ---
-usage: server.py [-h] [--cgi] [--bind ADDRESS] [--directory DIRECTORY] [--css_file CSS_FILE] [port]
+usage: server.py [-h] [--cgi] [--bind ADDRESS] [--directory DIRECTORY] [--css_file CSS_FILE]
+                 [--live_md_rr LIVE_MD_RR]
+                 [port]
 
 positional arguments:
   port                  Specify alternate port [default: 8000]
@@ -30,6 +32,8 @@ optional arguments:
   --directory DIRECTORY, -d DIRECTORY
                         Specify alternative directory [default:current directory]
   --css_file CSS_FILE   css-file-path; its content will be written to the <style> element
+  --live_md_rr LIVE_MD_RR, -l LIVE_MD_RR
+                        continuous refresh rate of MD page, in ms
 ```
 
 ### Markdown-to-HTML Out-File
