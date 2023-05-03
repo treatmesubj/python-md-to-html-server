@@ -90,7 +90,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--css_file",
         default=None,
-        help="css-file-path; its content will be written to the <style> element",
+        help='css-file-path whose content will be written to the <style> element. Can be "none"; do not use any css',
     )
     parser.add_argument(
         "--live_md_rr",
@@ -115,7 +115,9 @@ if __name__ == "__main__":
         MarkdownIt_obj = (
             MarkdownIt("commonmark").enable("table").enable("strikethrough")
         )
-        if args.css_file and not os.path.isfile(args.css_file):
+        if args.css_file and all(
+            (args.css_file != "none", not os.path.isfile(args.css_file))
+        ):
             raise FileNotFoundError(
                 f"looks like the given `css_file` argument's value - {args.css_file} - cannot be found"
             )

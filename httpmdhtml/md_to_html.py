@@ -31,8 +31,11 @@ def markdown_to_html(
     # soup.select_one('meta').attrs['content'] = "no-cache"
     soup.select_one("head").append(soup.new_tag("style"))
     if css_file:
-        with open(css_file, "r") as f:
-            css = f.read()
+        if css_file == "none":
+            css = ""
+        else:
+            with open(css_file, "r") as f:
+                css = f.read()
     else:
         css = """body { background-color: #272822; color: white; font-family: Courier; }
         a[href] { color: #66d9ef; }
@@ -81,7 +84,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--css_file",
         default=None,
-        help="css-file-path; its content will be written to the <style> element",
+        help='css-file-path whose content will be written to the <style> element. Can be "none"; do not use any css',
     )
     args = parser.parse_args()
 
