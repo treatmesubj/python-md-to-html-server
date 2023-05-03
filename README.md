@@ -32,7 +32,7 @@ optional arguments:
   --directory DIRECTORY, -d DIRECTORY
                         Specify alternative directory [default:current directory]
   --css_file CSS_FILE   css-file-path whose content will be written to the <style> element. Can be "none"; do not
-                            use any css
+                        use any css
   --live_md_rr LIVE_MD_RR, -l LIVE_MD_RR
                         Continuous refresh rate of MD page, in ms. Respects cache
 ```
@@ -54,6 +54,6 @@ optional arguments:
                         in HTML, embed base64-encoded data of local images linked to in your markdown; remove
                         dependency on presence of external local images
   --css_file CSS_FILE   css-file-path whose content will be written to the <style> element. Can be "none"; do not
-                            use any css
+                        use any css
 ```
 ![](<./scrot.png>)
