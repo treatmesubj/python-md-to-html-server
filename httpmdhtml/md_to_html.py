@@ -38,7 +38,7 @@ def markdown_to_html(
                 css = f.read()
     else: # #272822
         css = """
-body { background-color: #272822; color: #e6edf3; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji"; position: relative; max-width: 960px; margin: auto }
+body { background-color: #272822; color: #e6edf3; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji"; position: relative; max-width: 960px; margin: auto; line-height: 1.5; }
 a[href] { color: #66d9ef; }
 code { color: #e6edf3; font-family: monospace; white-space: break-spaces; }
 p code { padding: .2em .4em; border-radius: 6px; background-color: #343941; }
