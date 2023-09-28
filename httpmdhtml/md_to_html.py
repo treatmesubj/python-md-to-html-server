@@ -41,8 +41,8 @@ def markdown_to_html(
 body { background-color: #272822; color: #e6edf3; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji"; position: relative; max-width: 960px; margin: auto; line-height: 1.5; }
 a[href] { color: #66d9ef; }
 code { color: #e6edf3; background-color: #343941; font-family: monospace; padding: .2em .4em; border-radius: 6px; }
-pre { padding: 1em; border-radius: 6px; background-color: #161b22; }
-pre code { background-color: #161b22; }
+pre { padding: 1em; border-radius: 6px; background-color: #161b22; overflow-x:auto; }
+pre > code { background-color: #161b22; padding: 0px 0px; }
 table, th, td { border: 1px solid; border-collapse: collapse; padding-left: 4px; padding-right: 4px; }
 img { max-width: 100%; }
 """
