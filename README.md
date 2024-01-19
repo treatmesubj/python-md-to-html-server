@@ -2,7 +2,8 @@
 
 It's the standard Python [http.server module](https://docs.python.org/3/library/http.server.html) but via [markdown-it-py](https://github.com/executablebooks/markdown-it-py), requested Markdown files are rendered and served as HTML
 
-The `http.server` module's `SimpleHTTPRequestHandler` class is inherited by a new class with its `do_GET` method overridden. [beautifulsoup](https://pypi.org/project/beautifulsoup4/) and [html5lib](https://pypi.org/project/html5lib/) add `<html>`, `<head>`, & `<body>` elements and I insert a `<style>` element with some personally preferred CSS styling. Optionally, a custom CSS file can be used to style instead.
+The `http.server` module's `SimpleHTTPRequestHandler` class is inherited by a new class with its `do_GET` method overridden. [beautifulsoup](https://pypi.org/project/beautifulsoup4/) and [html5lib](https://pypi.org/project/html5lib/) add `<html>`, `<head>`, & `<body>` elements and I insert a `<style>` element with some personally preferred CSS styling. Optionally, a custom CSS file can be used to style instead.\
+[highlightjs](https://highlightjs.org) adds syntax highlighting to code blocks.
 
 It makes for a simple way to write up some Markdown with a terminal & a web browser
 
@@ -56,4 +57,4 @@ optional arguments:
   --css_file CSS_FILE   css-file-path whose content will be written to the <style> element. Can be "none"; do not
                         use any css
 ```
-![](<./scrot.png>)
+![](<./skrot.png>)
