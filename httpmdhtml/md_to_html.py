@@ -2,13 +2,12 @@
 just convert a markdown file to HTML and write it out to a file
 """
 import os
-import sys
 import base64
 from pathlib import Path
 import argparse
 import re
 from markdown_it import MarkdownIt
-from bs4 import BeautifulSoup, element
+from bs4 import BeautifulSoup
 
 
 def markdown_to_html(
@@ -26,9 +25,17 @@ def markdown_to_html(
     soup = BeautifulSoup(html_text, "html5lib")  # adds <html>, <head>,  <body>
     soup.select_one("head").append(soup.new_tag("meta"))
     soup.select_one("meta").attrs["charset"] = "UTF-8"
-    # if lots of images, caching is preferable more often than not
-    # soup.select_one('meta').attrs['http-equiv'] = "Cache-control"
-    # soup.select_one('meta').attrs['content'] = "no-cache"
+
+    # syntax highlighting
+    soup.select_one('head').append(soup.new_tag('link'))
+    soup.select_one("link").attrs["rel"] = "stylesheet"
+    soup.select_one("link").attrs["href"] = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai.min.css"
+
+    soup.select_one('head').append(soup.new_tag('script'))
+    soup.select("script")[0].attrs['src'] ='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'
+    soup.select_one('head').append(soup.new_tag('script'))
+    soup.select("script")[1].string = 'hljs.highlightAll();'
+
     soup.select_one("head").append(soup.new_tag("style"))
     if css_file:
         if css_file == "none":
@@ -52,7 +59,7 @@ img { max-width: 100%; }
             f"setTimeout(function(){{ document.location.reload(); }}, {live_md_rr});"
         )
         soup.select_one("head").append(soup.new_tag("script"))
-        soup.select_one("script").string = script
+        soup.select("script")[-1].string = script
     if encode_local_images:
         img_elems = soup.select("img")
         url_pattern = "^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$"
@@ -77,7 +84,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--out_file_path",
         "-o",
-        default="tmp.html",
+        default=None,
         help="out-file-path; your HTML file to be created",
     )
     parser.add_argument(
@@ -92,6 +99,9 @@ if __name__ == "__main__":
         help='css-file-path whose content will be written to the <style> element. Can be "none"; do not use any css',
     )
     args = parser.parse_args()
+
+    if not args.out_file_path:
+        args.out_file_path = str(Path(args.in_file_path).with_suffix('.html'))
 
     markdown_to_html(
         MarkdownIt_obj=MarkdownIt_obj,
